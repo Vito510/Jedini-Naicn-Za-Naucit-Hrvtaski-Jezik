@@ -107,6 +107,8 @@ elif int(diff) == 4:
 elif int(diff) == 5:
     min = int(input("min = "))
     max = int(input("max = "))
+    Fake_Chance = int(input("max = "))
+
 elif int(diff) == 0:
     print("Ok slušaj vamo. Žnači nakon što odabereš težinu (Veličina riječi i kompleksitet ovise o težini)\npojavit će ti se neka nasumična riječ iz koje su Č i Ć zamjenjeni s C\n i onda ti trebaš prepisat CJELU riječ i zamijenit C sa Č ili Ć. \n!!!U nekim riječima može biti više praznih C-ova. \nnpr. Dva prazna C-a jedan može biti Č a drugi Ć, a također može biti da je jedan Č a drugi ostaje prazan\nE da nije mi se dalo isprogramirat da te vrati na početak pa sam zatvori i otvori ponovo :)")
     x = input()
