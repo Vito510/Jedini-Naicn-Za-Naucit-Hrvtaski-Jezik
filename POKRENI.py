@@ -1,4 +1,6 @@
 
+
+
 try:
     import sys
     import random
@@ -18,66 +20,65 @@ netocno = int(0)
 
 sys.setrecursionlimit(15000)
 
+def GetLineCount(filepath):
 
+    linecount = int(0)
 
-def cleaning():
+    for line in open(filepath, "r", encoding="UTF-8"):
+        linecount = linecount + 1
 
-    clean = re.sub('č', 'c', upit)
-    clean = re.sub('ć', 'c', clean)
+    return linecount+1
 
-    clean = re.sub('Č', 'C', clean)
-    clean = re.sub('Ć', 'C', clean)
+def cleaning(user_in):
+
+    clean_list = ['č','ć','Č','Ć']
+    clean = user_in
+
+    for i in clean_list:
+        try:
+            clean = clean.replace(i,'c')
+        except:
+            meko()
+            break
 
     return clean
 
-
-def mt():
-    
-    ran = random.randint(1,2)
-
-    if ran == 1:
-        upit = tvrdo()
-    elif ran == 2:
-        upit = meko()
-
-    return upit
-
-
 def meko():
 
-    filepath = 'src/Sve_ć.txt'
+    if int(diff) < 3:
+        filepath = 'src/Razvrstaj_'+diff+'.txt'
+    else:
+       filepath = 'src/Razvrstaj_3.txt'
+
+    if random.randint(1,Fake_Chance) == 1:
+
+        if int(diff) < 3:
+            filepath = 'src/Sve_'+diff+'_c.txt'
+        else:
+            filepath = 'src/Sve_3_c.txt'
 
 
-    ran = random.randint(1,26491)
     
-    fp = open(filepath, "r", encoding="UTF-8")
-    for i, line in enumerate(fp):
-        if i == ran:
-            #print("meko Ran = {} RIjec = {}".format(ran,line))
-            upit = line
-            return upit
-            break
+
+
+    upit = None
+    while upit == None:
+        if upit == None:
+            print("None")
+
+        fp = open(filepath, "r", encoding="UTF-8")
+        ran = random.randint(1,GetLineCount(filepath))
+
+        for i, line in enumerate(fp):
+            if i == ran:
+
+                upit = line
+                return upit
+                break
 
 
     fp.close()   
 
-
-def tvrdo():
-
-    filepath = 'src/Sve_č.txt'
-
-
-    ran = random.randint(1,73284)
-    
-    fp = open(filepath, "r", encoding="UTF-8")
-    for i, line in enumerate(fp):
-        if i == ran:
-            #print("tvrdo 5Ran = {} RIjec = {}".format(ran,line))
-            upit = line
-            return upit
-            break
-
-    fp.close()   
 
 print('Sve riječi izvučene su iz databaze Hrvatskog jezičnog portala.\nU toj databazi postoji 73284 riječi koje sadrže slovo Č i 26491 riječi koje sadrže slovo Ć\n\n Izvukao i programirao "Dr." "Prof." Vito Čuić\n E da i definitivno nisam i neću provijeriti jesu li točno napisane u databazi\n')
 
@@ -86,15 +87,19 @@ print("Odabir težine: \n 1) Lagano \n 2) Normalan lik \n 3) Teško \n 4) Profes
 diff = input("")
     
 if int(diff) == 1:
+    Fake_Chance = 100
     min = 0
     max = 5
 elif int(diff) == 2:
+    Fake_Chance = 20
     min = 6
     max = 9
 elif int(diff) == 3:
+    Fake_Chance = 10
     min = 10
     max = 15
 elif int(diff) == 4:
+    Fake_Chance = 7
     min = 16
     max = 20
 elif int(diff) == 5:
@@ -106,12 +111,12 @@ elif int(diff) == 0:
 
 for i in range(0,100):
 
-    upit = mt()
+    upit = meko()
 
-    while len(upit)-1 < min or len(upit)-1 > max: 
-        upit = mt()
+    #while len(upit)-1 < min or len(upit)-1 > max: Stari code koji sam svrstava diffuculty po velicini rijeci
+    #    upit = meko()
 
-    clean = cleaning()
+    clean = cleaning(upit)
 
     print("\nZadatak {}: {}".format(i+1,clean))
 
@@ -129,11 +134,5 @@ for i in range(0,100):
         netocno = netocno + 1
         print("Hahaa glupan tocan odgovor je: {}".format(upit))
         print("Statistika: {}/{} Postotak: {:.2f}%".format(tocno,tocno+netocno,(tocno/(tocno+netocno))*100))
-
-
-
-
-
-
 
 x = input("")
