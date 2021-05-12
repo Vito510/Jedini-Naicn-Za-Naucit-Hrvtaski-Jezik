@@ -15,6 +15,8 @@ clean = ""
 user = ""
 upit = ""
 
+zadatak = int(0)
+
 tocno = int(0)
 netocno = int(0)
 
@@ -59,10 +61,6 @@ def meko():
         else:
             filepath = 'src/Sve_3_c.txt'
 
-
-    
-
-
     upit = None
     while upit == None:
         if upit == None:
@@ -79,7 +77,41 @@ def meko():
                 break
 
 
-    fp.close()   
+    fp.close() 
+
+
+def loop():
+
+    global netocno
+    global tocno
+    global zadatak
+
+    upit = meko()
+
+    #while len(upit)-1 < min or len(upit)-1 > max: Stari code koji sam svrstava diffuculty po velicini rijeci
+    #    upit = meko()
+
+    clean = cleaning(upit)
+
+    print("\nZadatak {}: {}".format(zadatak+1,clean))
+
+    user = str(input("Odgovor {}: ".format(zadatak+1)))
+
+    user = user.strip()
+    upit = upit.strip()
+
+
+    if str(user) == str(upit):
+        tocno = tocno + 1
+        print("Bravo tocno!")
+        print("Statistika: {}/{} Postotak: {:.2f}%".format(tocno,tocno+netocno,(tocno/(tocno+netocno))*100))
+    else:
+        netocno = netocno + 1
+        print("Hahaa glupan tocan odgovor je: {}".format(upit))
+        print("Statistika: {}/{} Postotak: {:.2f}%".format(tocno,tocno+netocno,(tocno/(tocno+netocno))*100))
+
+    zadatak = zadatak + 1
+    loop()  
 
 
 print('Sve riječi izvučene su iz databaze Hrvatskog jezičnog portala.\nU toj databazi postoji 73284 riječi koje sadrže slovo Č i 26491 riječi koje sadrže slovo Ć\n\n Izvukao i programirao "Dr." "Prof." Vito Čuić\n E da i definitivno nisam i neću provijeriti jesu li točno napisane u databazi\n')
@@ -107,36 +139,10 @@ elif int(diff) == 4:
 elif int(diff) == 5:
     min = int(input("min = "))
     max = int(input("max = "))
-    Fake_Chance = int(input("max = "))
-
+    Fake_Chance = int(input("Fake = "))
+    
 elif int(diff) == 0:
     print("Ok slušaj vamo. Žnači nakon što odabereš težinu (Veličina riječi i kompleksitet ovise o težini)\npojavit će ti se neka nasumična riječ iz koje su Č i Ć zamjenjeni s C\n i onda ti trebaš prepisat CJELU riječ i zamijenit C sa Č ili Ć. \n!!!U nekim riječima može biti više praznih C-ova. \nnpr. Dva prazna C-a jedan može biti Č a drugi Ć, a također može biti da je jedan Č a drugi ostaje prazan\nE da nije mi se dalo isprogramirat da te vrati na početak pa sam zatvori i otvori ponovo :)")
     x = input()
 
-for i in range(0,100):
-
-    upit = meko()
-
-    #while len(upit)-1 < min or len(upit)-1 > max: Stari code koji sam svrstava diffuculty po velicini rijeci
-    #    upit = meko()
-
-    clean = cleaning(upit)
-
-    print("\nZadatak {}: {}".format(i+1,clean))
-
-    user = str(input("Odgovor {}: ".format(i+1)))
-
-    user = user.strip()
-    upit = upit.strip()
-
-
-    if str(user) == str(upit):
-        tocno = tocno + 1
-        print("Bravo tocno!")
-        print("Statistika: {}/{} Postotak: {:.2f}%".format(tocno,tocno+netocno,(tocno/(tocno+netocno))*100))
-    else:
-        netocno = netocno + 1
-        print("Hahaa glupan tocan odgovor je: {}".format(upit))
-        print("Statistika: {}/{} Postotak: {:.2f}%".format(tocno,tocno+netocno,(tocno/(tocno+netocno))*100))
-
-x = input("")
+loop()
